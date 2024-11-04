@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimalist Digital Clock</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    .container {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #ffffff;
+      border: 2px solid #dedede;
+      border-radius: 12px;
+      max-width: 350px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .container h1 {
+      font-size: 1.5em;
+      color: #333;
+      margin: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .clock {
+      font-size: 2.5em;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function DigitalClock() {
+      const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setTime(new Date().toLocaleTimeString());
+        }, 1000);
+
+        return () => clearInterval(interval);
+      }, []);
+
+      return (
+        <div className="container">
+          <h1>Current Time</h1>
+          <div className="clock">{time}</div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<DigitalClock />, document.getElementById('root'));
+  </script>
+
+</body>
+</html>
